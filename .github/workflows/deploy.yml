@@ -1,7 +1,7 @@
 name: Deploy-Blog
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 jobs:
   deploy:
@@ -12,7 +12,7 @@ jobs:
           submodules: recursive
       - uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: 'latest'
+          hugo-version: "latest"
           extended: true
       - run: hugo --minify
       - name: Deploy to Aliyun
@@ -21,6 +21,9 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
           source: "public/*"
           target: "/var/www/hugo/"
           strip_components: 1
+          # 开启调试，能看到更具体的失败原因
+          debug: true
