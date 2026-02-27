@@ -1,29 +1,35 @@
 name: Deploy-Blog
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   workflow_dispatch:
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
         with:
           submodules: recursive
-      - uses: peaceiris/actions-hugo@v3
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: "latest"
+          hugo-version: 'latest'
           extended: true
-      - run: hugo --minify
-      - name: Deploy to Aliyun
+
+      - name: Build Blog
+        run: hugo --minify
+
+      - name: Deploy to Aliyun via Password
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          password: ${{ secrets.REMOTE_PASSWORD }} # 这里改用密码认证
           port: 22
           source: "public/*"
-          target: "/var/www/hugo/"
+          target: "${{ secrets.TARGET }}"
           strip_components: 1
-          # 开启调试，能看到更具体的失败原因
-          debug: true
+          overwrite: true
