@@ -13,296 +13,296 @@ DefaultContentLanguage: zh-cn
 hasCJKLanguage: false
 
 languages:
-    # en:
-        # languageName: English
-        # title: Example Site
-        # weight: 1
-        # params:
-        #     sidebar:
-        #         subtitle: Example description
-    zh-cn:
-        languageName: 中文
-        title: 御衡的笔记
-        weight: 2
-        params:
-            sidebar:
-                subtitle: "欢迎~ 这次是又又又一次重新部署博客，内容还在重新编写中……"
+  # en:
+  # languageName: English
+  # title: Example Site
+  # weight: 1
+  # params:
+  #     sidebar:
+  #         subtitle: Example description
+  zh-cn:
+    languageName: 中文
+    title: 御衡的笔记
+    weight: 2
+    params:
+      sidebar:
+        subtitle: "欢迎~ 这次是又又又一次重新部署博客，内容还在重新编写中……"
 
-    # ar:
-    #     languageName: عربي
-    #     languagedirection: rtl
-    #     title: موقع تجريبي
-    #     weight: 3
-    #     params:
-    #         sidebar:
-    #             subtitle: وصف تجريبي
+  # ar:
+  #     languageName: عربي
+  #     languagedirection: rtl
+  #     title: موقع تجريبي
+  #     weight: 3
+  #     params:
+  #         sidebar:
+  #             subtitle: وصف تجريبي
 
 services:
-    # Change it to your Disqus shortname before using
-    disqus:
-        shortname: "hugo-theme-stack"
-    # GA Tracking ID
-    googleAnalytics:
-        id:
+  # Change it to your Disqus shortname before using
+  disqus:
+    shortname: "hugo-theme-stack"
+  # GA Tracking ID
+  googleAnalytics:
+    id:
 
 pagination:
-    pagerSize: 3
+  pagerSize: 3
 
 permalinks:
-    post: /p/:slug/
-    page: /:slug/
+  post: /p/:slug/
+  page: /:slug/
 
 params:
+  mainSections:
+    - post
+  # featuredImageField: image
+  rssFullContent: true
+  favicon: # e.g.: favicon placed in `static/favicon.ico` of your site folder, then set this field to `/favicon.ico` (`/` is necessary)
+  showReadingTime: false
 
-    mainSections:
-        - post
-    # featuredImageField: image
-    rssFullContent: true
-    favicon: # e.g.: favicon placed in `static/favicon.ico` of your site folder, then set this field to `/favicon.ico` (`/` is necessary)
-    showReadingTime: false
+  # 页脚
+  footer:
+    since: 2025
+    customText:
+    # policeRecord: "滇ICP备2025050069号-2"
 
-    # 页脚
-    footer:
-        since: 2025
-        customText:
-        # policeRecord: "滇ICP备2025050069号-2"
+  # 标签
+  tag:
+    # 取消自动格式化
+    - format: "raw"
 
-    # 标签
-    tag:
-      # 取消自动格式化
-      - format: "raw"
+  dateFormat:
+    published: 2006-01-02
+    lastUpdated: Jan 02, 2006 15:04 MST
 
+  # 头像
+  sidebar:
+    # emoji 状态
+    emoji:
+    subtitle: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    avatar:
+      enabled: true
+      local: true
+      src: img/avatar.jpg
 
+  # 文章底部
+  article:
+    math: true
+    toc: true
+    readingTime: false
+    license:
+      enabled: false
+      default: Licensed under CC BY-NC-SA 4.0
 
-    dateFormat:
-        published: 2006-01-02
-        lastUpdated: Jan 02, 2006 15:04 MST
+  # 评论
+  comments:
+    # 评论系统配置，默认启用 Waline
+    enabled: true
+    provider: giscus
 
-    # 头像
-    sidebar:
-      # emoji 状态
-        emoji:
-        subtitle: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        avatar:
-            enabled: true
-            local: true
-            src: img/avatar.jpg
+    disqusjs:
+      shortname:
+      apiUrl:
+      apiKey:
+      admin:
+      adminLabel:
 
-    # 文章底部
-    article:
-        math: true
-        toc: true
-        readingTime: false
-        license:
-            enabled: false
-            default: Licensed under CC BY-NC-SA 4.0
+    utterances:
+      repo:
+      issueTerm: pathname
+      label:
 
-    # 评论
-    comments:
-        # 评论系统配置，默认启用 Waline
-        enabled: true
-        provider: waline
+    beaudar:
+      repo:
+      issueTerm: pathname
+      label:
+      theme:
 
-        disqusjs:
-            shortname:
-            apiUrl:
-            apiKey:
-            admin:
-            adminLabel:
+    remark42:
+      host:
+      site:
+      locale:
 
-        utterances:
-            repo:
-            issueTerm: pathname
-            label:
+    vssue:
+      platform:
+      owner:
+      repo:
+      clientId:
+      clientSecret:
+      autoCreateIssue: false
 
-        beaudar:
-            repo:
-            issueTerm: pathname
-            label:
-            theme:
+    # Waline client configuration see: https://waline.js.org/en/reference/component.html
+    # Waline 需要自托管服务器，部署文档：https://waline.js.org/guide/get-started.html
+    # Vercel 部署指南：查看项目根目录的 WALINE_VERCEL_DEPLOY.md
+    waline:
+      # Waline 服务器地址（必需）
+      # Vercel 部署后，填写格式：https://your-project.vercel.app
+      # 或自定义域名：https://waline.your-domain.com
+      # 部署步骤：
+      # 1. Fork https://github.com/walinejs/waline/tree/main/example
+      # 2. 在 Vercel 导入项目并配置环境变量（推荐使用 LeanCloud）
+      # 3. 部署完成后将地址填入此处
+      serverURL: https://blog-mt7arnny6-leos-projects-448df06d.vercel.app/
 
-        remark42:
-            host:
-            site:
-            locale:
+      # 语言设置：zh-CN（简体中文）、zh-TW（繁体中文）、en（英文）等
+      lang: zh-CN
+      # 是否启用浏览量统计
+      pageview: true
+      # 表情包配置，可以使用多个表情包源
+      emoji:
+        - https://unpkg.com/@waline/emojis@1.0.1/weibo
+        - https://unpkg.com/@waline/emojis@1.0.1/qq
+      # 必填字段：name（昵称）、email（邮箱）、url（网址，可选）
+      requiredMeta:
+        - name
+        - email
+      # 登录方式配置（可选）
+      # 支持的登录方式：['Github', 'QQ', 'Weibo', 'Twitter', 'Facebook', 'Google', 'Microsoft', 'Apple', 'Telegram', 'Discord', 'Bilibili', 'Email']
+      # 如果留空，则使用默认的登录方式（通常包括 Github、QQ、Weibo 等）
+      # login: ['Github', 'QQ', 'Weibo']
+      # 本地化设置
+      locale:
+        admin: 管理员
+        placeholder: 欢迎留言讨论~
 
-        vssue:
-            platform:
-            owner:
-            repo:
-            clientId:
-            clientSecret:
-            autoCreateIssue: false
+    twikoo:
+      envId:
+      region:
+      path:
+      lang:
 
-        # Waline client configuration see: https://waline.js.org/en/reference/component.html
-        # Waline 需要自托管服务器，部署文档：https://waline.js.org/guide/get-started.html
-        # Vercel 部署指南：查看项目根目录的 WALINE_VERCEL_DEPLOY.md
-        waline:
-            # Waline 服务器地址（必需）
-            # Vercel 部署后，填写格式：https://your-project.vercel.app
-            # 或自定义域名：https://waline.your-domain.com
-            # 部署步骤：
-            # 1. Fork https://github.com/walinejs/waline/tree/main/example
-            # 2. 在 Vercel 导入项目并配置环境变量（推荐使用 LeanCloud）
-            # 3. 部署完成后将地址填入此处
-            serverURL: https://blog-mt7arnny6-leos-projects-448df06d.vercel.app/
-            
-            # 语言设置：zh-CN（简体中文）、zh-TW（繁体中文）、en（英文）等
-            lang: zh-CN
-            # 是否启用浏览量统计
-            pageview: true
-            # 表情包配置，可以使用多个表情包源
-            emoji:
-                - https://unpkg.com/@waline/emojis@1.0.1/weibo
-                - https://unpkg.com/@waline/emojis@1.0.1/qq
-            # 必填字段：name（昵称）、email（邮箱）、url（网址，可选）
-            requiredMeta:
-                - name
-                - email
-            # 登录方式配置（可选）
-            # 支持的登录方式：['Github', 'QQ', 'Weibo', 'Twitter', 'Facebook', 'Google', 'Microsoft', 'Apple', 'Telegram', 'Discord', 'Bilibili', 'Email']
-            # 如果留空，则使用默认的登录方式（通常包括 Github、QQ、Weibo 等）
-            # login: ['Github', 'QQ', 'Weibo']
-            # 本地化设置
-            locale:
-                admin: 管理员
-                placeholder: 欢迎留言讨论~
+    # See https://cactus.chat/docs/reference/web-client/#configuration for description of the various options
+    cactus:
+      defaultHomeserverUrl: "https://matrix.cactus.chat:8448"
+      serverName: "cactus.chat"
+      siteName: "" # You must insert a unique identifier here matching the one you registered (See https://cactus.chat/docs/getting-started/quick-start/#register-your-site)
 
-        twikoo:
-            envId:
-            region:
-            path:
-            lang:
+    giscus:
+      repo: "LeoBenChoi/my-hugo-blog/"
+      repoID: "R_kgDORaIvrw"
+      category: "Announcements"
+      categoryID: "DIC_kwDORaIvr84C3VgJ"
+      mapping: "pathname"
+      lightTheme:
+      darkTheme:
+      reactionsEnabled: 1
+      emitMetadata: 0
+      strict: "0"
+      inputPosition: "top"
+      theme: "preferred_color_scheme"
+      lang: "zh-CN"
+      loading: "lazy"
 
-        # See https://cactus.chat/docs/reference/web-client/#configuration for description of the various options
-        cactus:
-            defaultHomeserverUrl: "https://matrix.cactus.chat:8448"
-            serverName: "cactus.chat"
-            siteName: "" # You must insert a unique identifier here matching the one you registered (See https://cactus.chat/docs/getting-started/quick-start/#register-your-site)
+    gitalk:
+      owner:
+      admin:
+      repo:
+      clientID:
+      clientSecret:
+      proxy:
 
-        giscus:
-            repo:
-            repoID:
-            category:
-            categoryID:
-            mapping:
-            lightTheme:
-            darkTheme:
-            reactionsEnabled: 1
-            emitMetadata: 0
+    cusdis:
+      host:
+      id:
+  widgets:
+    homepage:
+      - type: search
+      - type: archives
+        params:
+          limit: 5
+      - type: categories
+        params:
+          limit: 10
+      - type: tag-cloud
+        params:
+          limit: 10
+    page:
+      - type: toc
 
-        gitalk:
-            owner:
-            admin:
-            repo:
-            clientID:
-            clientSecret:
-            proxy:
+  opengraph:
+    twitter:
+      # Your Twitter username
+      site:
 
-        cusdis:
-            host:
-            id:
-    widgets:
-        homepage:
-            - type: search
-            - type: archives
-              params:
-                  limit: 5
-            - type: categories
-              params:
-                  limit: 10
-            - type: tag-cloud
-              params:
-                  limit: 10
-        page:
-            - type: toc
+      # Available values: summary, summary_large_image
+      card: summary_large_image
 
-
+  defaultImage:
     opengraph:
-        twitter:
-            # Your Twitter username
-            site:
+      enabled: true
+      local: false
+      src:
 
-            # Available values: summary, summary_large_image
-            card: summary_large_image
+  colorScheme:
+    # Display toggle
+    toggle: true
 
-    defaultImage:
-        opengraph:
-            enabled: true
-            local: false
-            src:
+    # Available values: auto, light, dark
+    default: auto
 
-    colorScheme:
-        # Display toggle
-        toggle: true
-
-        # Available values: auto, light, dark
-        default: auto
-
-    imageProcessing:
-        cover:
-            enabled: true
-        content:
-            enabled: true
+  imageProcessing:
+    cover:
+      enabled: true
+    content:
+      enabled: true
 
 ### Custom menu
 ### See https://stack.jimmycai.com/config/menu
 ### To remove about, archive and search page menu item, remove `menu` field from their FrontMatter
 menu:
-    main: []
+  main: []
 
-    social:
-        - identifier: github
-          name: GitHub
-          # url: https://github.com/CaiJimmy/hugo-theme-stack
-          url: https://github.com/LeoBenChoi
-          params:
-              icon: brand-github
+  social:
+    - identifier: github
+      name: GitHub
+      # url: https://github.com/CaiJimmy/hugo-theme-stack
+      url: https://github.com/LeoBenChoi
+      params:
+        icon: brand-github
 
-        # - identifier: twitter
-        #   name: Twitter
-        #   url: https://twitter.com
-        #   params:
-        #       icon: brand-twitter
+    # - identifier: twitter
+    #   name: Twitter
+    #   url: https://twitter.com
+    #   params:
+    #       icon: brand-twitter
 
 related:
-    includeNewer: true
-    threshold: 60
-    toLower: false
-    indices:
-        - name: tags
-          weight: 100
+  includeNewer: true
+  threshold: 60
+  toLower: false
+  indices:
+    - name: tags
+      weight: 100
 
-        - name: categories
-          weight: 200
+    - name: categories
+      weight: 200
 
 markup:
-    goldmark:
-        extensions:
-            passthrough:
-                enable: true
-                delimiters:
-                    block:
-                        - - \[
-                          - \]
-                        - - $$
-                          - $$
-                    inline:
-                        - - \(
-                          - \)
-        renderer:
-            ## Set to true if you have HTML content inside Markdown
-            unsafe: true
-    tableOfContents:
-        endLevel: 4
-        ordered: true
-        startLevel: 2
-    highlight:
-        noClasses: false
-        codeFences: true
-        guessSyntax: true
-        lineNoStart: 1
-        lineNos: true
-        lineNumbersInTable: true
-        tabWidth: 4
-
+  goldmark:
+    extensions:
+      passthrough:
+        enable: true
+        delimiters:
+          block:
+            - - \[
+              - \]
+            - - $$
+              - $$
+          inline:
+            - - \(
+              - \)
+    renderer:
+      ## Set to true if you have HTML content inside Markdown
+      unsafe: true
+  tableOfContents:
+    endLevel: 4
+    ordered: true
+    startLevel: 2
+  highlight:
+    noClasses: false
+    codeFences: true
+    guessSyntax: true
+    lineNoStart: 1
+    lineNos: true
+    lineNumbersInTable: true
+    tabWidth: 4
