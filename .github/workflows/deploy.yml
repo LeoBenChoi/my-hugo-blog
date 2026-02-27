@@ -1,0 +1,38 @@
+name: Deploy-to-Aliyun-ECS
+
+on:
+  push:
+    branches: [main] # 监听主分支推送
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 拉取代码及子模块 (Stack 主题)
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      # 2. 安装 Hugo (指定 Extended 版本处理 SCSS)
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "latest"
+          extended: true
+
+      # 3. 编译静态文件
+      - name: Build Site
+        run: hugo --minify
+
+      # 4. 使用 rsync 增量同步至阿里云 ECS
+      - name: Sync to Aliyun
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          REMOTE_HOST: "47.109.52.102"
+          REMOTE_USER: "ecs-user"
+          TARGET: "/var/www/hugo/" # 你的目标路径
+          SOURCE: "public/" # Hugo 默认输出目录
+          ARGS: "-avz --delete" # 增量压缩同步，并删除服务器冗余文件
