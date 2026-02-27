@@ -1,7 +1,7 @@
 name: Deploy-Blog
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   workflow_dispatch:
 jobs:
   deploy:
@@ -12,15 +12,15 @@ jobs:
           submodules: recursive
       - uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: "latest"
+          hugo-version: 'latest'
           extended: true
       - run: hugo --minify
-      - name: Deploy to ECS
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: "/var/www/hugo/"
-          SOURCE: "public/"
-          ARGS: "-avz --delete"
+      - name: Deploy to Aliyun
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: "public/*"
+          target: "/var/www/hugo/"
+          strip_components: 1
