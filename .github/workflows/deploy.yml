@@ -22,14 +22,21 @@ jobs:
       - name: Build Blog
         run: hugo --minify
 
-      - name: Deploy to Aliyun via Password
-        uses: appleboy/scp-action@master
+      - name: Deploy to Aliyun via rsync
+        uses: AykutSarac/rsync-deployment@v1.1.0
         with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          password: ${{ secrets.REMOTE_PASSWORD }} # 这里改用密码认证
-          port: 22
-          source: "public/*"
-          target: "${{ secrets.TARGET }}"
-          strip_components: 1
-          overwrite: true
+          # 远程服务器地址
+          remote_host: ${{ secrets.REMOTE_HOST }}
+          # 远程用户名
+          remote_user: ${{ secrets.REMOTE_USER }}
+          # 远程服务器端口
+          remote_port: 22
+          # ⚠️ 注意：rsync 插件通常更推荐 SSH Key，但如果必须用密码
+          # 该插件支持通过 ssh-pass 机制处理
+          remote_password: ${{ secrets.REMOTE_PASSWORD }}
+          # 本地需要同步的目录 (Hugo 默认生成在 public)
+          local_path: ./public/
+          # 远程目标路径
+          remote_path: ${{ secrets.TARGET }}
+          # rsync 参数：-a (归档模式), -v (详细输出), -z (压缩), --delete (删除远程有但本地没有的文件)
+          args: -avz --delete
