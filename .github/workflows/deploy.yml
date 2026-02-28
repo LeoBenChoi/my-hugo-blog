@@ -22,21 +22,23 @@ jobs:
       - name: Build Blog
         run: hugo --minify
 
-      - name: Deploy to Aliyun via rsync
-        uses: AykutSarac/rsync-deployment@v1.1.0
-        with:
-          # 远程服务器地址
-          remote_host: ${{ secrets.REMOTE_HOST }}
-          # 远程用户名
-          remote_user: ${{ secrets.REMOTE_USER }}
-          # 远程服务器端口
-          remote_port: 22
-          # ⚠️ 注意：rsync 插件通常更推荐 SSH Key，但如果必须用密码
-          # 该插件支持通过 ssh-pass 机制处理
-          remote_password: ${{ secrets.REMOTE_PASSWORD }}
-          # 本地需要同步的目录 (Hugo 默认生成在 public)
-          local_path: ./public/
-          # 远程目标路径
-          remote_path: ${{ secrets.TARGET }}
-          # rsync 参数：-a (归档模式), -v (详细输出), -z (压缩), --delete (删除远程有但本地没有的文件)
-          args: -avz --delete
+      - name: Deploy to Aliyun via rsync (Password Auth)
+        env:
+          RSYNC_PASSWORD: ${{ secrets.REMOTE_PASSWORD }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET_PATH: ${{ secrets.TARGET }}
+        run: |
+          # 1. 安装 sshpass 以支持非交互式密码输入
+          sudo apt-get update && sudo apt-get install -y sshpass
+
+          # 2. 执行 rsync 同步
+          # -a: 归档模式 (保留权限、时间戳等)
+          # -v: 显示详细过程
+          # -z: 传输时压缩数据
+          # --delete: 删除远程服务器上存在但本地已删除的文件 (保持完全一致)
+          # -e: 指定 ssh 命令，关闭严格的主机密钥检查 (防止因首次连接弹出确认而失败)
+          sshpass -e rsync -avz --delete \
+            -e "ssh -o StrictHostKeyChecking=no -p 22" \
+            public/ \
+            $REMOTE_USER@$REMOTE_HOST:$TARGET_PATH
