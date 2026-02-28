@@ -2,3 +2,6 @@ public/
 resources/
 .hugo_build.lock
 hugo_stats.json
+
+# Obsidian 配置与数据，仅本地使用
+.obsidian/
