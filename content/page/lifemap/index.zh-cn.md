@@ -2,9 +2,9 @@
 title: 少走弯路
 menu:
     main: 
-        weight: -90
+        weight: -55
         params:
-            icon: "map-regular-full"
+            icon: book-2
 comments: false
 ---
 
