@@ -1,4 +1,5 @@
 name: Deploy-Blog
+
 on:
   push:
     branches: [ main ]
@@ -23,22 +24,23 @@ jobs:
         run: hugo --minify
 
       - name: Deploy to Aliyun via rsync (Password Auth)
+        # 使用 env 定义 sshpass 必须的变量名 SSHPASS
         env:
-          RSYNC_PASSWORD: ${{ secrets.REMOTE_PASSWORD }}
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET_PATH: ${{ secrets.TARGET }}
+          SSHPASS: ${{ secrets.REMOTE_PASSWORD }}
         run: |
-          # 1. 安装 sshpass 以支持非交互式密码输入
-          sudo apt-get update && sudo apt-get install -y sshpass
+          # 检查并确保 sshpass 可用（通常已预装）
+          if ! command -v sshpass &> /dev/null; then
+              sudo apt-get update && sudo apt-get install -y sshpass
+          fi
 
-          # 2. 执行 rsync 同步
-          # -a: 归档模式 (保留权限、时间戳等)
-          # -v: 显示详细过程
-          # -z: 传输时压缩数据
-          # --delete: 删除远程服务器上存在但本地已删除的文件 (保持完全一致)
-          # -e: 指定 ssh 命令，关闭严格的主机密钥检查 (防止因首次连接弹出确认而失败)
+          # 执行 rsync 增量同步
+          # 逻辑图示: [Local: public/] --(rsync)--> [Remote: TARGET]
+          # -a: 归档模式 (保留所有权和时间)
+          # -v: 详细输出同步过程
+          # -z: 传输时压缩提高速度
+          # --delete: 确保远程服务器上没有多余的旧文件
+          # -e: 注入 ssh 选项跳过首次连接的确认提示
           sshpass -e rsync -avz --delete \
             -e "ssh -o StrictHostKeyChecking=no -p 22" \
             public/ \
-            $REMOTE_USER@$REMOTE_HOST:$TARGET_PATH
+            ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.TARGET }}
