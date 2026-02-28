@@ -2,3 +2,6 @@ public/
 resources/
 .hugo_build.lock
 hugo_stats.json
+
+# 主题子模块，避免 lazygit 反复提示
+themes/hugo-theme-stack
